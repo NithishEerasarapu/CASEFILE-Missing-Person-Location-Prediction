@@ -8,117 +8,12 @@ from pathlib import Path
 
 st.markdown("""
 <style>
-
-    /* Main page */
-    .stApp {
-        background: linear-gradient(
-            135deg,
-            #eef4ff 0%,
-            #f8fafc 50%,
-            #e0f2fe 100%
-        );
-    }
-
-    /* Main content */
-    .block-container {
-        max-width: 1200px;
-        padding-top: 2rem;
-        padding-bottom: 3rem;
-    }
-
-    /* Main title */
-    h1 {
-        color: #0f172a !important;
-        font-weight: 800 !important;
-        letter-spacing: 1px;
-    }
-
-    /* Section headings */
-    h2 {
-        color: #1e3a8a !important;
-        font-weight: 700 !important;
-        border-left: 6px solid #2563eb;
-        padding-left: 12px;
-        margin-top: 25px;
-    }
-
-    h3 {
-        color: #1e40af !important;
-    }
-
-    /* Metric cards */
-    [data-testid="stMetric"] {
-        background: white;
-        padding: 20px;
-        border-radius: 16px;
-        border: 1px solid #dbeafe;
-        box-shadow: 0 5px 18px rgba(15, 23, 42, 0.10);
-    }
-
-    [data-testid="stMetricLabel"] {
-        color: #475569 !important;
-        font-weight: 600;
-    }
-
-    [data-testid="stMetricValue"] {
-        color: #1d4ed8 !important;
-        font-weight: 800;
-    }
-
-    /* Sidebar */
-    [data-testid="stSidebar"] {
-        background: linear-gradient(
-            180deg,
-            #0f172a,
-            #1e3a8a
-        );
-    }
-
-    [data-testid="stSidebar"] * {
-        color: white !important;
-    }
-
-    /* Select box */
-    [data-baseweb="select"] > div {
-        background-color: white;
-        border-radius: 10px;
-    }
-
-    /* Information boxes */
-    [data-testid="stAlert"] {
-        border-radius: 12px;
-    }
-
-    /* Buttons */
-    .stButton > button {
-        border-radius: 10px;
-        font-weight: 600;
-    }
-
-    /* Progress bar */
-    [data-testid="stProgress"] > div > div {
-        border-radius: 10px;
-    }
-
-    /* Data table */
-    [data-testid="stDataFrame"] {
-        border-radius: 14px;
-        overflow: hidden;
-        box-shadow: 0 4px 15px rgba(15, 23, 42, 0.08);
-    }
-
-    /* Map */
-    iframe {
-        border-radius: 15px;
-    }
-
-    /* Text */
-    p {
-        color: #334155;
-    }
-
+    /* CSS code here */
 </style>
 """, unsafe_allow_html=True)
+
+# Your existing dashboard code continues here...
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
