@@ -1,143 +1,18 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
+    background: red !important;
+    color: white !important;
     font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #0f172a, #1e3a5f);
-    color: white;
-    min-height: 100vh;
 }
 
-/* Main Container */
-.container {
-    width: 90%;
-    max-width: 900px;
-    margin: 50px auto;
-    text-align: center;
-}
-
-/* Heading */
 h1 {
-    font-size: 38px;
-    margin-bottom: 10px;
-}
-
-h2 {
-    margin-bottom: 25px;
-}
-
-p {
-    color: #dbeafe;
-    margin-bottom: 20px;
-}
-
-/* Card */
-.card {
-    background: rgba(255, 255, 255, 0.10);
-    padding: 35px;
-    border-radius: 18px;
-    margin-top: 30px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-}
-
-/* Form */
-form {
-    text-align: left;
-}
-
-label {
-    display: block;
-    margin-top: 18px;
-    margin-bottom: 7px;
-    font-weight: bold;
-}
-
-input {
-    width: 100%;
-    padding: 13px;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    outline: none;
-}
-
-/* Button */
-button {
-    width: 100%;
-    padding: 14px;
-    margin-top: 25px;
-    border: none;
-    border-radius: 8px;
-    background: #2563eb;
-    color: white;
-    font-size: 17px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-button:hover {
-    background: #1d4ed8;
-    transform: translateY(-2px);
-}
-
-/* Result */
-.result-box {
-    background: rgba(255, 255, 255, 0.10);
-    padding: 30px;
-    border-radius: 18px;
-    margin-top: 30px;
-}
-
-.result-item {
-    background: rgba(255, 255, 255, 0.08);
-    padding: 18px;
-    margin: 12px 0;
-    border-radius: 10px;
-}
-
-.result-item strong {
-    color: #93c5fd;
-}
-
-/* Back Button */
-.back-btn {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 12px 25px;
-    background: #334155;
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-}
-
-.back-btn:hover {
-    background: #475569;
-}
-
-/* Footer */
-footer {
-    margin-top: 40px;
-    padding: 20px;
+    font-size: 50px;
     text-align: center;
-    color: #cbd5e1;
 }
 
-/* Mobile */
-@media (max-width: 600px) {
-    .container {
-        width: 92%;
-        margin-top: 30px;
-    }
-
-    h1 {
-        font-size: 28px;
-    }
-
-    .card {
-        padding: 22px;
-    }
+button {
+    background: blue !important;
+    color: white !important;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 10px;
 }
