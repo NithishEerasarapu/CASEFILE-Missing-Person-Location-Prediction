@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Prediction Result</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="header">
+            <div class="icon">📍</div>
+
+            <h1>Prediction Result</h1>
+
+            <p>AI-Powered Missing Person Investigation</p>
+        </div>
+
+        <div class="card">
+
+            <h2>🔎 Location Prediction</h2>
+
+            <div class="result-box">
+
+                <h3>Missing Person Details</h3>
+
+                <div class="result-item">
+                    <span>User ID</span>
+                    <strong>{{ user_id }}</strong>
+                </div>
+
+                <div class="result-item">
+                    <span>Predicted Latitude</span>
+                    <strong>{{ latitude }}</strong>
+                </div>
+
+                <div class="result-item">
+                    <span>Predicted Longitude</span>
+                    <strong>{{ longitude }}</strong>
+                </div>
+
+            </div>
+
+            <a href="/" class="back-button">
+                ← Predict Another Location
+            </a>
+
+        </div>
+
+        <div class="footer">
+            <p>AI-based approximate location prediction using GPS data.</p>
+            <p>Casefile Missing Person Investigation System</p>
+        </div>
+
+    </div>
+
+</body>
+</html>

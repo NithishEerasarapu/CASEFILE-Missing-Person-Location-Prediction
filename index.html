@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Missing Person Investigation</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="header">
+            <div class="icon">📍</div>
+
+            <h1>AI-Powered Missing Person Investigation</h1>
+
+            <p>Location Prediction System</p>
+        </div>
+
+        <div class="card">
+
+            <h2>🔎 Predict Missing Person Location</h2>
+
+            <p class="description">
+                Enter the person's details below to predict their
+                approximate location using the AI model.
+            </p>
+
+            <form action="/predict" method="POST">
+
+                <div class="form-group">
+                    <label for="user_id">User ID</label>
+
+                    <input
+                        type="text"
+                        id="user_id"
+                        name="user_id"
+                        placeholder="Example: USER_001"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <label for="date">Date</label>
+
+                    <input
+                        type="date"
+                        id="date"
+                        name="date"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <label for="time">Time</label>
+
+                    <input
+                        type="time"
+                        id="time"
+                        name="time"
+                        required>
+                </div>
+
+                <button type="submit">
+                    📍 Predict Location
+                </button>
+
+            </form>
+
+        </div>
+
+        <div class="footer">
+            <p>AI-based approximate location prediction using GPS data.</p>
+            <p>Casefile Missing Person Investigation System</p>
+        </div>
+
+    </div>
+
+</body>
+</html>

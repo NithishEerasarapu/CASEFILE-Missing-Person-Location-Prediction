@@ -1,0 +1,503 @@
+ CASEFILE: AI-Powered Missing Person Investigation and Location Prediction System
+
+1. Abstract
+
+CASEFILE is an academic machine learning project that analyzes GPS movement data and estimates probable geographical locations from historical movement patterns. The project uses machine learning techniques such as K-Means Clustering, Isolation Forest, Random Forest, and Markov Chain analysis.
+
+The system performs data preprocessing, feature engineering, movement analysis, anomaly detection, location prediction, route analysis, priority scoring, model explainability, and interactive visualization. A Streamlit dashboard is also developed to display the results in an easy-to-understand format.
+
+The project is developed for educational purposes using synthetic/public GPS data. It does not use real missing-person personal information, and its predictions are probabilistic estimates rather than proof of a person's actual location.
+
+2. Introduction
+
+GPS movement data can provide useful information about geographical and movement patterns. Machine learning can be used to analyze this data and identify frequently visited areas, unusual movement patterns, and possible future locations based on historical records.
+
+The CASEFILE project demonstrates an end-to-end machine learning system that processes GPS data, performs movement analysis, predicts probable locations, analyzes routes, and presents the results through an interactive dashboard.
+
+3. Problem Statement
+
+Finding useful patterns from large amounts of GPS movement data manually can be difficult and time-consuming. There is a need for a system that can automatically process movement data, identify geographical patterns, detect unusual movements, estimate probable locations, and analyze movement routes.
+
+The CASEFILE project addresses this problem by combining multiple machine learning and data analysis techniques into one academic system.
+
+4. Objectives
+
+The main objectives of the project are:
+
+1. To collect and analyze GPS movement data.
+2. To clean and preprocess the collected data.
+3. To create useful movement-related features.
+4. To identify geographical movement clusters using K-Means.
+5. To detect unusual movement patterns using Isolation Forest.
+6. To estimate probable locations using Random Forest.
+7. To analyze location transitions using Markov Chain.
+8. To calculate a demonstration priority score.
+9. To provide model explainability using feature importance.
+10. To display geographical information using an interactive map.
+11. To develop a Streamlit dashboard for visualization.
+12. To evaluate the machine learning model using different metrics.
+
+5. Dataset
+
+The project uses GPS movement data containing geographical coordinates and user movement information.
+
+The dataset contains fields such as:
+
+- User ID
+- Date
+- Time
+- Latitude
+- Longitude
+
+A synthetic GPS dataset containing 500 records was created for the academic demonstration.
+
+The data is used only for educational and machine learning experimentation.
+
+6. Data Preprocessing
+
+Data preprocessing was performed before applying machine learning algorithms.
+
+The following preprocessing steps were used:
+
+- Loading the GPS dataset.
+- Removing duplicate records.
+- Removing missing values.
+- Converting date values into a proper date format.
+- Converting time values into a proper time format.
+- Sorting records according to user, date, and time.
+- Encoding User IDs into numerical values for machine learning.
+
+The cleaned dataset was saved as:
+
+"data/cleaned_gps_data.csv"
+
+7. Feature Engineering
+
+Feature engineering was performed to create additional information from the original GPS data.
+
+The following features were created:
+
+- Hour
+- Minute
+- Day
+- Month
+- Weekday
+- Weekend indicator
+- Previous latitude
+- Previous longitude
+- Distance
+- Speed
+
+The distance between consecutive GPS records was calculated using the difference between latitude and longitude values.
+
+These additional features help the machine learning models understand movement patterns.
+
+The feature-engineered dataset was saved as:
+
+"data/feature_engineered_gps.csv"
+
+8. Exploratory Data Analysis
+
+Exploratory Data Analysis was performed to understand the structure and characteristics of the GPS dataset.
+
+The analysis focused on:
+
+- Number of records.
+- Latitude and longitude distribution.
+- User movement patterns.
+- Time-based movement information.
+- Distance between consecutive locations.
+- Speed-related information.
+
+EDA helps in understanding the dataset before applying machine learning algorithms.
+
+9. K-Means Clustering
+
+K-Means clustering was used to group GPS coordinates into geographical clusters.
+
+The latitude and longitude values were standardized before applying the algorithm.
+
+The project used 5 clusters.
+
+The purpose of clustering is to identify groups of locations that are geographically close to each other and understand common movement areas.
+
+The clustering results were saved in:
+
+"data/clustered_gps_data.csv"
+
+The trained clustering model was saved as:
+
+"clustering_model.pkl"
+
+10. Anomaly Detection
+
+Isolation Forest was used to identify unusual GPS movement patterns.
+
+The model analyzes features such as:
+
+- Latitude
+- Longitude
+- Distance
+- Speed
+
+The system classifies records as either:
+
+- Normal
+- Anomaly
+
+An anomaly only indicates that a movement record is unusual compared with the other records. It does not automatically mean that the movement is suspicious or criminal.
+
+The results were saved in:
+
+"data/anomaly_detected_gps.csv"
+
+The trained model was saved as:
+
+"anomaly_model.pkl"
+
+11. Location Prediction
+
+Random Forest Regression was used to estimate probable latitude and longitude values.
+
+The model uses features such as:
+
+- User ID
+- Hour
+- Minute
+- Day
+- Month
+
+The model was trained using historical GPS records.
+
+The predicted latitude and longitude are displayed as estimated geographical coordinates.
+
+The trained model was saved as:
+
+"location_model.pkl"
+
+The User ID encoder was saved as:
+
+"user_encoder.pkl"
+
+12. Route Prediction Using Markov Chain
+
+Markov Chain analysis was used to study transitions between different geographical clusters.
+
+Each cluster was treated as a location state.
+
+The previous location and current location were compared to calculate transition probabilities.
+
+For example, if a user frequently moves from Cluster 1 to Cluster 3, the transition probability between these locations becomes part of the route analysis.
+
+The transition probability table was saved as:
+
+"data/route_transition_probabilities.csv"
+
+13. Priority Score
+
+A demonstration priority score was developed by combining several factors.
+
+The factors include:
+
+- ML probability
+- Historical frequency
+- Route similarity
+- Distance relevance
+- Time relevance
+- Anomaly evidence
+
+The weighted components were combined to produce a score between 0 and 100.
+
+The score was categorized as:
+
+- Low
+- Medium
+- High
+- Very High
+
+This priority score is only a demonstration for the academic project and is not a validated real-world investigation scoring system.
+
+The results were saved as:
+
+"data/priority_scored_gps.csv"
+
+14. Model Explainability
+
+Model explainability was included to understand which input features contribute to the Random Forest prediction.
+
+Feature importance was calculated from the trained Random Forest model.
+
+The features analyzed include:
+
+- User ID encoded
+- Hour
+- Minute
+- Day
+- Month
+
+The feature importance results were saved as:
+
+"data/feature_importance.csv"
+
+Explainability helps users understand the factors considered by the model instead of treating the prediction as a black box.
+
+15. Interactive Map
+
+An interactive geographical map was created using Folium.
+
+The map displays GPS records using latitude and longitude coordinates.
+
+Information displayed on the map includes:
+
+- User ID
+- Latitude
+- Longitude
+- Cluster
+- Movement status
+- Priority level
+
+The interactive map was saved as:
+
+"data/casefile_map.html"
+
+The map provides a visual representation of GPS movement patterns.
+
+16. Streamlit Dashboard
+
+A Streamlit dashboard was developed to provide an interactive interface for the project.
+
+The dashboard contains:
+
+- CASEFILE project title
+- Case selection
+- User ID selection
+- Number of records
+- Priority level
+- Latest latitude
+- Latest longitude
+- Priority score
+- Normal records
+- Anomaly records
+- GPS movement map
+- Case data table
+
+The dashboard allows users to select a User ID and view the corresponding movement information.
+
+The dashboard is intended for academic demonstration.
+
+17. Flask Prediction Interface
+
+A Flask web application was also developed for location prediction.
+
+The user can enter:
+
+- User ID
+- Date
+- Time
+
+The application processes the input and displays the predicted latitude and longitude.
+
+The Flask interface provides a simple web-based way to demonstrate the location prediction model.
+
+18. Model Evaluation
+
+Model evaluation was performed to measure the performance of the location prediction model.
+
+The evaluation includes regression metrics such as:
+
+- Mean Absolute Error (MAE)
+- Root Mean Squared Error (RMSE)
+
+Additional classification-style metrics were also explored for the academic demonstration:
+
+- Accuracy
+- Precision
+- Recall
+- F1 Score
+- Confusion Matrix
+
+Top-1, Top-3, and Top-5 location ranking evaluation were identified as useful future evaluation methods for a system that produces ranked location candidates.
+
+Because the current model predicts continuous latitude and longitude values, classification-style metrics and Top-K ranking require a more suitable location-ranking implementation for rigorous evaluation.
+
+19. Technologies Used
+
+The following technologies were used in the project:
+
+- Python
+- Pandas
+- NumPy
+- Scikit-learn
+- Joblib
+- Flask
+- Streamlit
+- Folium
+- Jupyter Notebook
+- VS Code
+
+Machine learning techniques used include:
+
+- Random Forest
+- K-Means Clustering
+- Isolation Forest
+- Markov Chain
+
+20. Project Workflow
+
+The overall project workflow is:
+
+Data Collection
+
+↓
+
+Data Preprocessing
+
+↓
+
+Feature Engineering
+
+↓
+
+Exploratory Data Analysis
+
+↓
+
+K-Means Clustering
+
+↓
+
+Anomaly Detection
+
+↓
+
+Location Prediction
+
+↓
+
+Route Prediction
+
+↓
+
+Priority Scoring
+
+↓
+
+Model Explainability
+
+↓
+
+Interactive Mapping
+
+↓
+
+Streamlit Dashboard
+
+21. Project Structure
+
+The main project structure is:
+
+CASEFILE_MISSING_PERSON/
+
+- data/
+- notebooks/
+- src/
+- app/
+- models/
+- reports/
+- requirements.txt
+- README.md
+
+Important files include:
+
+"create_dataset.py"
+
+"clean.py"
+
+"train_model.py"
+
+"predict.py"
+
+"src/feature_engineering.py"
+
+"src/clustering.py"
+
+"src/anomaly_detection.py"
+
+"src/route_prediction.py"
+
+"src/priority_score.py"
+
+"src/explainability.py"
+
+"src/mapping.py"
+
+"src/model_evaluation.py"
+
+"app/dashboard.py"
+
+22. Ethical Considerations
+
+This project is designed for academic demonstration using synthetic/public GPS data.
+
+The system does not use real missing-person personal information.
+
+The predictions generated by the machine learning model are estimates and should not be treated as proof of a person's actual location.
+
+Anomaly detection identifies unusual movement patterns and does not automatically indicate suspicious or criminal activity.
+
+The project should not be used as a replacement for professional investigation, emergency services, or verified location information.
+
+23. Limitations
+
+The project has several limitations.
+
+1. The dataset used for demonstration is synthetic and limited in size.
+2. GPS prediction accuracy depends on the quality and quantity of historical data.
+3. The Random Forest model provides estimated coordinates rather than guaranteed locations.
+4. Anomaly detection can produce false positives and false negatives.
+5. The demonstration priority score is not clinically, legally, or operationally validated.
+6. Markov Chain predictions depend on previously observed movement transitions.
+7. Real-world movement patterns can be much more complex than the patterns in the demonstration dataset.
+8. The current Top-1, Top-3, and Top-5 evaluation is documented as future improvement rather than a complete ranked-location evaluation.
+
+24. Future Scope
+
+The project can be improved in the future by:
+
+- Using larger real-world public GPS datasets.
+- Adding weather and environmental information.
+- Adding more movement features.
+- Using advanced models such as XGBoost.
+- Improving location ranking.
+- Implementing proper Top-1, Top-3, and Top-5 evaluation.
+- Adding SHAP-based explainability.
+- Improving route prediction.
+- Adding more advanced geographical analysis.
+- Improving the dashboard interface.
+- Adding secure authentication for academic demonstrations.
+- Comparing multiple machine learning algorithms.
+
+25. Conclusion
+
+CASEFILE demonstrates how machine learning can be used to analyze GPS movement data and estimate probable geographical locations.
+
+The project combines data preprocessing, feature engineering, clustering, anomaly detection, location prediction, route analysis, priority scoring, explainability, interactive mapping, and dashboard visualization.
+
+K-Means was used for geographical clustering, Isolation Forest was used for unusual movement detection, Random Forest was used for location estimation, and Markov Chain was used for route transition analysis.
+
+The project successfully demonstrates an end-to-end machine learning workflow and provides an interactive interface through Flask and Streamlit.
+
+The system is an academic prototype and its predictions should be interpreted as probabilistic estimates rather than confirmed real-world information.
+
+26. References
+
+1. Python Documentation – Python programming language documentation.
+2. Pandas Documentation – Data processing and analysis.
+3. NumPy Documentation – Numerical and scientific computing.
+4. Scikit-learn Documentation – Machine learning algorithms and evaluation.
+5. Flask Documentation – Web application development.
+6. Streamlit Documentation – Interactive data science dashboards.
+7. Folium Documentation – Interactive geographical maps.
+8. Microsoft GeoLife GPS Trajectories Dataset – GPS movement data reference.
+9. OpenStreetMap – Open geographical mapping data.
+10. Jupyter Notebook Documentation – Notebook-based data analysis and experimentation.
