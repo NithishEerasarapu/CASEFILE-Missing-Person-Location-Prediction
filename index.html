@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>AI Missing Person Investigation</title>
+    <title>CASEFILE - Location Prediction System</title>
 
+    <!-- Connect CSS -->
     <link rel="stylesheet"
           href="{{ url_for('static', filename='style.css') }}">
 </head>
@@ -14,70 +16,115 @@
 
     <div class="container">
 
+        <!-- Header -->
         <div class="header">
-            <div class="icon">📍</div>
+            <h1>🕵️ CASEFILE</h1>
 
-            <h1>AI-Powered Missing Person Investigation</h1>
-
-            <p>Location Prediction System</p>
+            <p>
+                AI-Powered Missing Person Investigation
+                and Location Prediction System
+            </p>
         </div>
 
+
+        <!-- Prediction Card -->
         <div class="card">
 
-            <h2>🔎 Predict Missing Person Location</h2>
+            <h2>📍 Location Prediction</h2>
 
-            <p class="description">
-                Enter the person's details below to predict their
-                approximate location using the AI model.
+            <p>
+                Enter the available case information below
+                to estimate a probable location.
             </p>
 
             <form action="/predict" method="POST">
 
-                <div class="form-group">
-                    <label for="user_id">User ID</label>
+                <!-- User ID -->
+                <label for="user_id">
+                    User ID
+                </label>
 
-                    <input
-                        type="text"
-                        id="user_id"
-                        name="user_id"
-                        placeholder="Example: USER_001"
-                        required>
-                </div>
+                <input
+                    type="text"
+                    id="user_id"
+                    name="user_id"
+                    placeholder="Example: USER_001"
+                    required
+                >
 
-                <div class="form-group">
-                    <label for="date">Date</label>
 
-                    <input
-                        type="date"
-                        id="date"
-                        name="date"
-                        required>
-                </div>
+                <!-- Date -->
+                <label for="date">
+                    Date
+                </label>
 
-                <div class="form-group">
-                    <label for="time">Time</label>
+                <input
+                    type="date"
+                    id="date"
+                    name="date"
+                    required
+                >
 
-                    <input
-                        type="time"
-                        id="time"
-                        name="time"
-                        required>
-                </div>
 
+                <!-- Time -->
+                <label for="time">
+                    Time
+                </label>
+
+                <input
+                    type="time"
+                    id="time"
+                    name="time"
+                    required
+                >
+
+
+                <!-- Submit -->
                 <button type="submit">
-                    📍 Predict Location
+                    🔍 Predict Location
                 </button>
 
             </form>
 
         </div>
 
-        <div class="footer">
-            <p>AI-based approximate location prediction using GPS data.</p>
-            <p>Casefile Missing Person Investigation System</p>
+
+        <!-- Information Card -->
+        <div class="card">
+
+            <h2>🤖 About CASEFILE</h2>
+
+            <p>
+                CASEFILE is an academic machine learning
+                project that analyzes GPS movement patterns
+                and estimates probable locations using
+                historical data.
+            </p>
+
+            <p>
+                The system demonstrates data preprocessing,
+                clustering, anomaly detection, location
+                prediction, route analysis and priority
+                scoring.
+            </p>
+
         </div>
+
+
+        <!-- Footer -->
+        <footer>
+            <p>
+                Academic Machine Learning Project © 2026
+            </p>
+
+            <p>
+                For educational demonstration only.
+                Predictions are estimates and may contain errors.
+            </p>
+        </footer>
 
     </div>
 
 </body>
+
 </html>
