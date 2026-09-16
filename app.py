@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 import pandas as pd
 import joblib
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder=",")
 
 # Load trained model
 model = joblib.load("location_model.pkl")
