@@ -1,7 +1,8 @@
+Flask
+gunicorn
 pandas
 numpy
 scikit-learn
 joblib
-flask
 streamlit
 folium
