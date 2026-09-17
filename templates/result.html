@@ -1,149 +1,288 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prediction Result - CASEFILE</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
     <style>
-        .result-card-inner {
-            background: #0f172a;
-            border: 1px solid #1e293b;
-            border-radius: 14px;
-            padding: 24px;
-            margin: 20px 0;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0a;
+            color: #e5e5e5;
+            min-height: 100vh;
         }
 
-        .result-row {
+        /* Navigation */
+        .navbar {
+            background: rgba(10, 10, 10, 0.95);
+            border-bottom: 1px solid #1a1a1a;
+            padding: 16px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            backdrop-filter: blur(20px);
+        }
+        .logo { display: flex; align-items: center; gap: 10px; }
+        .logo-icon {
+            width: 32px; height: 32px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border-radius: 8px; display: flex; align-items: center;
+            justify-content: center; font-size: 16px;
+        }
+        .logo-text { font-size: 18px; font-weight: 700; letter-spacing: 2px; color: #fff; }
+        .status-badge {
+            display: flex; align-items: center; gap: 8px;
+            background: #0a1a0a; border: 1px solid #1a3a1a;
+            padding: 6px 14px; border-radius: 20px;
+        }
+        .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; animation: pulse 2s infinite; }
+        .status-text { font-size: 12px; color: #4ade80; font-weight: 600; letter-spacing: 0.5px; }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .main-content {
+            max-width: 580px;
+            margin: 0 auto;
+            padding: 50px 20px 60px;
+        }
+
+        /* Success Header */
+        .success-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .success-icon {
+            width: 56px; height: 56px;
+            background: linear-gradient(135deg, #065f46, #064e3b);
+            border: 2px solid #10b981;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px; margin: 0 auto 16px;
+        }
+        .success-header h1 {
+            font-size: 28px; font-weight: 800; color: #ffffff;
+            margin-bottom: 6px;
+        }
+        .success-header p {
+            font-size: 14px; color: #525252;
+        }
+
+        /* Result Card */
+        .result-card {
+            background: #141414;
+            border: 1px solid #262626;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        .result-card-section {
+            padding: 24px 28px;
+        }
+        .result-card-section + .result-card-section {
+            border-top: 1px solid #1a1a1a;
+        }
+
+        .section-label {
+            font-size: 11px; font-weight: 700; color: #525252;
+            text-transform: uppercase; letter-spacing: 1.5px;
+            margin-bottom: 16px;
+        }
+
+        /* Data Row */
+        .data-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 14px 0;
-            border-bottom: 1px solid #1e293b;
+            padding: 12px 0;
+        }
+        .data-row + .data-row {
+            border-top: 1px solid #1a1a1a;
+        }
+        .data-key {
+            font-size: 14px; color: #737373; font-weight: 500;
+        }
+        .data-val {
+            font-size: 14px; color: #ffffff; font-weight: 600;
         }
 
-        .result-row:last-child {
-            border-bottom: none;
+        /* Coordinate Display */
+        .coord-display {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
         }
-
-        .result-label {
-            color: #94a3b8;
-            font-size: 16px;
-            font-weight: 600;
-        }
-
-        .result-value {
-            color: #f8fafc;
-            font-size: 17px;
-            font-weight: 700;
-        }
-
-        .result-value.highlight {
-            color: #38bdf8;
-            font-size: 20px;
-            font-family: 'Courier New', Courier, monospace;
-        }
-
-        .map-frame {
-            width: 100%;
-            height: 280px;
+        .coord-box {
+            background: #0a0a0a;
+            border: 1px solid #262626;
             border-radius: 12px;
-            border: 1px solid #334155;
-            margin-top: 20px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-        }
-
-        .action-btn {
-            display: inline-block;
-            width: 100%;
+            padding: 20px;
             text-align: center;
-            padding: 15px;
-            background: linear-gradient(90deg, #0284c7, #2563eb);
-            color: #ffffff;
-            border-radius: 10px;
+        }
+        .coord-label {
+            font-size: 11px; color: #525252; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        .coord-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 22px; font-weight: 700; color: #3b82f6;
+        }
+        .coord-unit {
+            font-size: 13px; color: #525252; margin-left: 2px;
+        }
+
+        /* Map Frame */
+        .map-container {
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #262626;
+            margin-top: 4px;
+        }
+        .map-container iframe {
+            width: 100%; height: 220px; border: none; display: block;
+        }
+
+        /* Action Buttons */
+        .actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .btn-primary {
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 14px 20px; border: none; border-radius: 10px;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: #ffffff; font-size: 14px; font-weight: 600;
+            font-family: 'Inter', sans-serif; cursor: pointer;
             text-decoration: none;
-            font-weight: bold;
-            font-size: 17px;
-            margin-top: 20px;
-            transition: transform 0.2s ease, background 0.2s ease;
+            transition: all 0.2s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+        }
+        .btn-secondary {
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 14px 20px; border: 1px solid #262626; border-radius: 10px;
+            background: #141414; color: #a3a3a3;
+            font-size: 14px; font-weight: 600;
+            font-family: 'Inter', sans-serif; cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        .btn-secondary:hover {
+            background: #1a1a1a; color: #ffffff;
+            border-color: #404040;
         }
 
-        .action-btn:hover {
-            transform: translateY(-2px);
-            background: linear-gradient(90deg, #0369a1, #1d4ed8);
-        }
-
-        .back-link {
-            display: block;
+        /* Footer */
+        .footer {
             text-align: center;
-            margin-top: 20px;
-            color: #94a3b8;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 15px;
+            padding: 24px 20px;
+            border-top: 1px solid #1a1a1a;
         }
+        .footer p { font-size: 12px; color: #404040; }
 
-        .back-link:hover {
-            color: #38bdf8;
+        @media (max-width: 600px) {
+            .navbar { padding: 14px 20px; }
+            .main-content { padding: 30px 16px 40px; }
+            .coord-display { grid-template-columns: 1fr; }
+            .actions { grid-template-columns: 1fr; }
+            .result-card-section { padding: 20px; }
         }
     </style>
 </head>
-
 <body>
-    <div class="container">
-        <div class="header">
-            <div style="font-size: 3.5rem; margin-bottom: 10px;">📍</div>
-            <h1>Prediction Result</h1>
-            <p>AI-Powered Missing Person Investigation & Location Analysis</p>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            <div class="logo-icon">🔍</div>
+            <div class="logo-text">CASEFILE</div>
+        </div>
+        <div class="status-badge">
+            <div class="status-dot"></div>
+            <span class="status-text">PREDICTION COMPLETE</span>
+        </div>
+    </nav>
+
+    <div class="main-content">
+
+        <!-- Success Header -->
+        <div class="success-header">
+            <div class="success-icon">✓</div>
+            <h1>Location Predicted</h1>
+            <p>Analysis completed successfully for case {{ user_id }}</p>
         </div>
 
-        <div class="card">
-            <h2>🔎 Location Prediction Details</h2>
-
-            <div class="result-card-inner">
-                <div class="result-row">
-                    <span class="result-label">User ID</span>
-                    <span class="result-value">{{ user_id }}</span>
+        <!-- Result Card -->
+        <div class="result-card">
+            <!-- Case Info -->
+            <div class="result-card-section">
+                <div class="section-label">Case Information</div>
+                <div class="data-row">
+                    <span class="data-key">Person ID</span>
+                    <span class="data-val">{{ user_id }}</span>
                 </div>
-                <div class="result-row">
-                    <span class="result-label">Target Date & Time</span>
-                    <span class="result-value">{{ date }} at {{ time }}</span>
+                <div class="data-row">
+                    <span class="data-key">Target Date</span>
+                    <span class="data-val">{{ date }}</span>
                 </div>
-                <div class="result-row">
-                    <span class="result-label">Predicted Latitude</span>
-                    <span class="result-value highlight">{{ latitude }}° N</span>
-                </div>
-                <div class="result-row">
-                    <span class="result-label">Predicted Longitude</span>
-                    <span class="result-value highlight">{{ longitude }}° E</span>
+                <div class="data-row">
+                    <span class="data-key">Target Time</span>
+                    <span class="data-val">{{ time }}</span>
                 </div>
             </div>
 
-            <!-- Embedded Live Map -->
-            <iframe
-                class="map-frame"
-                src="https://maps.google.com/maps?q={{ latitude }},{{ longitude }}&hl=en&z=14&output=embed"
-                allowfullscreen=""
-                loading="lazy">
-            </iframe>
+            <!-- Predicted Coordinates -->
+            <div class="result-card-section">
+                <div class="section-label">Predicted Coordinates</div>
+                <div class="coord-display">
+                    <div class="coord-box">
+                        <div class="coord-label">Latitude</div>
+                        <div class="coord-value">{{ latitude }}<span class="coord-unit">° N</span></div>
+                    </div>
+                    <div class="coord-box">
+                        <div class="coord-label">Longitude</div>
+                        <div class="coord-value">{{ longitude }}<span class="coord-unit">° E</span></div>
+                    </div>
+                </div>
+            </div>
 
-            <a href="https://www.google.com/maps?q={{ latitude }},{{ longitude }}" target="_blank" class="action-btn">
-                🗺️ Open Full Location on Google Maps
-            </a>
-
-            <a href="/" class="back-link">
-                ← Predict Another Location
-            </a>
+            <!-- Embedded Map -->
+            <div class="result-card-section">
+                <div class="section-label">Location Preview</div>
+                <div class="map-container">
+                    <iframe
+                        src="https://maps.google.com/maps?q={{ latitude }},{{ longitude }}&hl=en&z=14&output=embed"
+                        allowfullscreen loading="lazy">
+                    </iframe>
+                </div>
+            </div>
         </div>
 
-        <footer>
-            <p>AI-based approximate location prediction using historical GPS movement patterns.</p>
-            <p>CASEFILE Missing Person Investigation System © 2026</p>
-        </footer>
+        <!-- Action Buttons -->
+        <div class="actions">
+            <a href="https://www.google.com/maps?q={{ latitude }},{{ longitude }}" target="_blank" class="btn-primary">
+                🗺️ Open in Maps
+            </a>
+            <a href="/" class="btn-secondary">
+                ← New Prediction
+            </a>
+        </div>
     </div>
-</body>
 
+    <!-- Footer -->
+    <div class="footer">
+        <p>CASEFILE © 2026 · AI-powered location prediction using GPS historical patterns</p>
+    </div>
+
+</body>
 </html>

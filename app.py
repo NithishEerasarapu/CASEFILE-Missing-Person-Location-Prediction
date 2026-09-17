@@ -89,18 +89,23 @@ def home():
         return """
         <!DOCTYPE html>
         <html>
-        <head><title>CASEFILE - Location Prediction</title></head>
-        <body style="font-family:sans-serif; background:#07111f; color:#fff; padding:40px; text-align:center;">
-            <h1>🕵️ CASEFILE - Location Prediction</h1>
-            <form action="/predict" method="POST" style="margin-top:30px;">
-                <label>User ID:</label><br>
-                <input type="text" name="user_id" value="USER_001" required style="padding:10px; margin:10px; width:250px;"><br>
-                <label>Date:</label><br>
-                <input type="date" name="date" required style="padding:10px; margin:10px; width:250px;"><br>
-                <label>Time:</label><br>
-                <input type="time" name="time" required style="padding:10px; margin:10px; width:250px;"><br>
-                <button type="submit" style="padding:12px 24px; background:#2563eb; color:#fff; border:none; border-radius:6px; cursor:pointer;">Predict Location</button>
-            </form>
+        <head><title>CASEFILE</title><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"></head>
+        <body style="font-family:'Inter',sans-serif; background:#0a0a0a; color:#e5e5e5; margin:0; padding:50px 20px;">
+            <div style="max-width:460px; margin:auto;">
+                <h1 style="text-align:center; font-size:28px; color:#fff; margin-bottom:8px;">🔍 CASEFILE</h1>
+                <p style="text-align:center; color:#525252; font-size:14px; margin-bottom:30px;">Missing Person Location Prediction</p>
+                <div style="background:#141414; border:1px solid #262626; border-radius:16px; padding:32px;">
+                    <form action="/predict" method="POST">
+                        <label style="display:block; font-size:12px; color:#a3a3a3; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:6px;">Person ID</label>
+                        <input type="text" name="user_id" value="USER_001" required style="width:100%; padding:12px; background:#0a0a0a; color:#fff; border:1px solid #262626; border-radius:8px; font-size:14px; margin-bottom:16px; outline:none;">
+                        <label style="display:block; font-size:12px; color:#a3a3a3; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:6px;">Date</label>
+                        <input type="date" name="date" required style="width:100%; padding:12px; background:#0a0a0a; color:#fff; border:1px solid #262626; border-radius:8px; font-size:14px; margin-bottom:16px; outline:none;">
+                        <label style="display:block; font-size:12px; color:#a3a3a3; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:6px;">Time</label>
+                        <input type="time" name="time" required style="width:100%; padding:12px; background:#0a0a0a; color:#fff; border:1px solid #262626; border-radius:8px; font-size:14px; margin-bottom:20px; outline:none;">
+                        <button type="submit" style="width:100%; padding:14px; background:#2563eb; color:#fff; border:none; border-radius:8px; font-size:14px; font-weight:700; cursor:pointer;">Predict Location →</button>
+                    </form>
+                </div>
+            </div>
         </body>
         </html>
         """
@@ -166,41 +171,60 @@ def predict():
         except Exception:
             return f"""
             <!DOCTYPE html>
-            <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Prediction Result - CASEFILE</title>
-                <style>
-                    body {{ font-family: Arial, sans-serif; background: linear-gradient(135deg, #07111f, #102a43, #0b1727); color: #fff; margin:0; padding:40px 20px; }}
-                    .container {{ max-width: 750px; margin: auto; }}
-                    .card {{ background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 20px; padding: 35px; box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35); }}
-                    .inner {{ background: #0f172a; border: 1px solid #1e293b; border-radius: 14px; padding: 20px; margin: 20px 0; }}
-                    .row {{ display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #1e293b; }}
-                    .label {{ color: #94a3b8; font-weight: 600; }}
-                    .val {{ color: #f8fafc; font-weight: bold; }}
-                    .hl {{ color: #38bdf8; font-size: 20px; font-family: monospace; }}
-                    .btn {{ display: block; text-align: center; padding: 15px; background: linear-gradient(90deg, #0284c7, #2563eb); color: #fff; border-radius: 10px; text-decoration: none; font-weight: bold; margin-top: 20px; }}
-                    .map {{ width: 100%; height: 260px; border-radius: 12px; border: 1px solid #334155; margin-top: 20px; }}
-                </style>
-            </head>
+            <html><head><title>Result - CASEFILE</title>
+            <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+            <style>
+                * {{ margin:0; padding:0; box-sizing:border-box; }}
+                body {{ font-family:'Inter',sans-serif; background:#0a0a0a; color:#e5e5e5; margin:0; padding:50px 20px; }}
+                .w {{ max-width:520px; margin:auto; }}
+                .hd {{ text-align:center; margin-bottom:28px; }}
+                .si {{ width:50px; height:50px; background:linear-gradient(135deg,#065f46,#064e3b); border:2px solid #10b981; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:22px; margin:0 auto 14px; }}
+                .hd h1 {{ font-size:26px; font-weight:800; color:#fff; margin-bottom:4px; }}
+                .hd p {{ font-size:13px; color:#525252; }}
+                .rc {{ background:#141414; border:1px solid #262626; border-radius:16px; overflow:hidden; margin-bottom:18px; }}
+                .rs {{ padding:22px 24px; border-top:1px solid #1a1a1a; }}
+                .rs:first-child {{ border-top:none; }}
+                .sl {{ font-size:11px; font-weight:700; color:#525252; text-transform:uppercase; letter-spacing:1.5px; margin-bottom:14px; }}
+                .dr {{ display:flex; justify-content:space-between; align-items:center; padding:10px 0; }}
+                .dr+.dr {{ border-top:1px solid #1a1a1a; }}
+                .dk {{ font-size:14px; color:#737373; font-weight:500; }}
+                .dv {{ font-size:14px; color:#fff; font-weight:600; }}
+                .cg {{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }}
+                .cb {{ background:#0a0a0a; border:1px solid #262626; border-radius:12px; padding:18px; text-align:center; }}
+                .cl {{ font-size:11px; color:#525252; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }}
+                .cv {{ font-family:'JetBrains Mono',monospace; font-size:22px; font-weight:700; color:#3b82f6; }}
+                .cu {{ font-size:13px; color:#525252; }}
+                .mc {{ border-radius:12px; overflow:hidden; border:1px solid #262626; }}
+                .mc iframe {{ width:100%; height:200px; border:none; display:block; }}
+                .ab {{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }}
+                .bp {{ display:flex; align-items:center; justify-content:center; gap:6px; padding:13px; border:none; border-radius:10px; background:linear-gradient(135deg,#3b82f6,#2563eb); color:#fff; font-size:13px; font-weight:600; text-decoration:none; }}
+                .bs {{ display:flex; align-items:center; justify-content:center; gap:6px; padding:13px; border:1px solid #262626; border-radius:10px; background:#141414; color:#a3a3a3; font-size:13px; font-weight:600; text-decoration:none; }}
+            </style></head>
             <body>
-                <div class="container">
-                    <div class="card">
-                        <h2 style="text-align:center; color:#7dd3fc;">🔎 Location Prediction Details</h2>
-                        <div class="inner">
-                            <div class="row"><span class="label">User ID</span><span class="val">{matched_user_id}</span></div>
-                            <div class="row"><span class="label">Target Date & Time</span><span class="val">{date} at {time}</span></div>
-                            <div class="row"><span class="label">Predicted Latitude</span><span class="val hl">{lat}° N</span></div>
-                            <div class="row" style="border-bottom:none;"><span class="label">Predicted Longitude</span><span class="val hl">{lon}° E</span></div>
+                <div class="w">
+                    <div class="hd"><div class="si">✓</div><h1>Location Predicted</h1><p>Analysis completed for case {matched_user_id}</p></div>
+                    <div class="rc">
+                        <div class="rs"><div class="sl">Case Information</div>
+                            <div class="dr"><span class="dk">Person ID</span><span class="dv">{matched_user_id}</span></div>
+                            <div class="dr"><span class="dk">Target Date</span><span class="dv">{date}</span></div>
+                            <div class="dr"><span class="dk">Target Time</span><span class="dv">{time}</span></div>
                         </div>
-                        <iframe class="map" src="https://maps.google.com/maps?q={lat},{lon}&hl=en&z=14&output=embed"></iframe>
-                        <a href="https://www.google.com/maps?q={lat},{lon}" target="_blank" class="btn">🗺️ Open Full Location on Google Maps</a>
-                        <a href="/" style="display:block; text-align:center; margin-top:20px; color:#94a3b8; text-decoration:none;">← Predict Another Location</a>
+                        <div class="rs"><div class="sl">Predicted Coordinates</div>
+                            <div class="cg">
+                                <div class="cb"><div class="cl">Latitude</div><div class="cv">{lat}<span class="cu">° N</span></div></div>
+                                <div class="cb"><div class="cl">Longitude</div><div class="cv">{lon}<span class="cu">° E</span></div></div>
+                            </div>
+                        </div>
+                        <div class="rs"><div class="sl">Location Preview</div>
+                            <div class="mc"><iframe src="https://maps.google.com/maps?q={lat},{lon}&hl=en&z=14&output=embed" loading="lazy"></iframe></div>
+                        </div>
+                    </div>
+                    <div class="ab">
+                        <a href="https://www.google.com/maps?q={lat},{lon}" target="_blank" class="bp">🗺️ Open in Maps</a>
+                        <a href="/" class="bs">← New Prediction</a>
                     </div>
                 </div>
-            </body>
-            </html>
+            </body></html>
             """
     except Exception as e:
         err_msg = traceback.format_exc()
