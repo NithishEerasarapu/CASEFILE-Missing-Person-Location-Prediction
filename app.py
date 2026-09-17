@@ -15,7 +15,6 @@ app = Flask(
     static_folder=static_path if os.path.exists(static_path) else BASE_DIR
 )
 
-# Global model & encoder cache for serverless environments
 MODEL = None
 ENCODER = None
 
@@ -59,7 +58,6 @@ def get_model_and_encoder():
     if MODEL is not None and ENCODER is not None:
         return MODEL, ENCODER
 
-    # Try loading pickled model/encoder
     model_path = os.path.join(BASE_DIR, "location_model.pkl")
     encoder_path = os.path.join(BASE_DIR, "user_encoder.pkl")
     if not os.path.exists(encoder_path):
@@ -168,16 +166,39 @@ def predict():
         except Exception:
             return f"""
             <!DOCTYPE html>
-            <html>
-            <head><title>Prediction Result</title></head>
-            <body style="font-family:sans-serif; background:#07111f; color:#fff; padding:40px; text-align:center;">
-                <h1>📍 Prediction Result</h1>
-                <p><strong>User ID:</strong> {matched_user_id}</p>
-                <p><strong>Date & Time:</strong> {date} {time}</p>
-                <p><strong>Predicted Latitude:</strong> {lat}</p>
-                <p><strong>Predicted Longitude:</strong> {lon}</p>
-                <p><a href="https://www.google.com/maps?q={lat},{lon}" target="_blank" style="color:#38bdf8;">🗺️ Open in Google Maps</a></p>
-                <a href="/" style="color:#aaa;">← Back</a>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Prediction Result - CASEFILE</title>
+                <style>
+                    body {{ font-family: Arial, sans-serif; background: linear-gradient(135deg, #07111f, #102a43, #0b1727); color: #fff; margin:0; padding:40px 20px; }}
+                    .container {{ max-width: 750px; margin: auto; }}
+                    .card {{ background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 20px; padding: 35px; box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35); }}
+                    .inner {{ background: #0f172a; border: 1px solid #1e293b; border-radius: 14px; padding: 20px; margin: 20px 0; }}
+                    .row {{ display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #1e293b; }}
+                    .label {{ color: #94a3b8; font-weight: 600; }}
+                    .val {{ color: #f8fafc; font-weight: bold; }}
+                    .hl {{ color: #38bdf8; font-size: 20px; font-family: monospace; }}
+                    .btn {{ display: block; text-align: center; padding: 15px; background: linear-gradient(90deg, #0284c7, #2563eb); color: #fff; border-radius: 10px; text-decoration: none; font-weight: bold; margin-top: 20px; }}
+                    .map {{ width: 100%; height: 260px; border-radius: 12px; border: 1px solid #334155; margin-top: 20px; }}
+                </style>
+            </head>
+            <body>
+                <div class="container">
+                    <div class="card">
+                        <h2 style="text-align:center; color:#7dd3fc;">🔎 Location Prediction Details</h2>
+                        <div class="inner">
+                            <div class="row"><span class="label">User ID</span><span class="val">{matched_user_id}</span></div>
+                            <div class="row"><span class="label">Target Date & Time</span><span class="val">{date} at {time}</span></div>
+                            <div class="row"><span class="label">Predicted Latitude</span><span class="val hl">{lat}° N</span></div>
+                            <div class="row" style="border-bottom:none;"><span class="label">Predicted Longitude</span><span class="val hl">{lon}° E</span></div>
+                        </div>
+                        <iframe class="map" src="https://maps.google.com/maps?q={lat},{lon}&hl=en&z=14&output=embed"></iframe>
+                        <a href="https://www.google.com/maps?q={lat},{lon}" target="_blank" class="btn">🗺️ Open Full Location on Google Maps</a>
+                        <a href="/" style="display:block; text-align:center; margin-top:20px; color:#94a3b8; text-decoration:none;">← Predict Another Location</a>
+                    </div>
+                </div>
             </body>
             </html>
             """
