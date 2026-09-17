@@ -58,6 +58,65 @@ body {
     margin-bottom: 15px;
 }
 
+/* Result Box Styling - Forced High Contrast Dark Theme */
+.result-box, .result-card-inner {
+    background: #0f172a !important;
+    border: 1px solid #334155 !important;
+    border-radius: 14px !important;
+    padding: 24px !important;
+    margin: 20px 0 !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5) !important;
+    color: #f8fafc !important;
+}
+
+.result-box h3 {
+    color: #38bdf8 !important;
+    font-size: 18px !important;
+    margin-bottom: 15px !important;
+    margin-top: 0 !important;
+    border-bottom: 1px solid #334155 !important;
+    padding-bottom: 10px !important;
+}
+
+.result-item, .result-row {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 14px 0 !important;
+    border-bottom: 1px solid #1e293b !important;
+}
+
+.result-item:last-child, .result-row:last-child {
+    border-bottom: none !important;
+}
+
+.result-item span, .result-label {
+    color: #94a3b8 !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+}
+
+.result-item strong, .result-value {
+    color: #ffffff !important;
+    font-size: 17px !important;
+    font-weight: 700 !important;
+}
+
+.result-item strong, .result-value.highlight {
+    color: #38bdf8 !important;
+    font-size: 20px !important;
+    font-family: 'Courier New', Courier, monospace !important;
+}
+
+.map-frame {
+    width: 100% !important;
+    height: 280px !important;
+    border-radius: 12px !important;
+    border: 1px solid #334155 !important;
+    margin-top: 20px !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4) !important;
+}
+
 form {
     margin-top: 25px;
 }
@@ -81,21 +140,40 @@ input {
     font-size: 16px;
 }
 
-button {
+button, .action-btn, a.back-button {
     width: 100%;
     margin-top: 30px;
     padding: 15px;
     border: none;
     border-radius: 10px;
-    background: linear-gradient(90deg, #0284c7, #2563eb);
-    color: white;
+    background: linear-gradient(90deg, #0284c7, #2563eb) !important;
+    color: white !important;
     font-size: 17px;
     font-weight: bold;
     cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    transition: transform 0.2s ease, background 0.2s ease;
 }
 
-button:hover {
+button:hover, .action-btn:hover {
     transform: translateY(-3px);
+    background: linear-gradient(90deg, #0369a1, #1d4ed8) !important;
+}
+
+.back-link {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #94a3b8;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.back-link:hover {
+    color: #38bdf8;
 }
 
 footer {
