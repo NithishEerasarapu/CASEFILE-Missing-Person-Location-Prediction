@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result - CASEFILE</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="icon" style="font-size: 3rem;">📍</div>
+            <h1>Prediction Result</h1>
+            <p>AI-Powered Missing Person Investigation</p>
+        </div>
+
+        <div class="card">
+            <h2>🔎 Location Prediction Details</h2>
+
+            <div class="result-box" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; margin: 20px 0;">
+                <h3 style="margin-top:0; color: #1e293b;">Case Details</h3>
+                <div class="result-item" style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #e2e8f0;">
+                    <span>User ID</span>
+                    <strong>{{ user_id }}</strong>
+                </div>
+                <div class="result-item" style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #e2e8f0;">
+                    <span>Target Date & Time</span>
+                    <strong>{{ date }} at {{ time }}</strong>
+                </div>
+                <div class="result-item" style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #e2e8f0;">
+                    <span>Predicted Latitude</span>
+                    <strong style="color: #2563eb;">{{ latitude }}</strong>
+                </div>
+                <div class="result-item" style="display: flex; justify-content: space-between; padding: 10px 0;">
+                    <span>Predicted Longitude</span>
+                    <strong style="color: #2563eb;">{{ longitude }}</strong>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin: 25px 0;">
+                <a href="https://www.google.com/maps?q={{ latitude }},{{ longitude }}" target="_blank" style="display: inline-block; padding: 12px 24px; background-color: #2563eb; color: white; border-radius: 6px; text-decoration: none; font-weight: bold; box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);">🗺️ Open Location on Google Maps</a>
+            </div>
+
+            <a href="/" class="back-button" style="display: block; text-align: center; margin-top: 15px; color: #64748b; text-decoration: none; font-weight: 500;">← Predict Another Location</a>
+        </div>
+
+        <footer style="text-align: center; margin-top: 30px; color: #94a3b8; font-size: 0.875rem;">
+            <p>AI-based approximate location prediction using GPS historical patterns.</p>
+            <p>CASEFILE Missing Person Investigation System © 2026</p>
+        </footer>
+    </div>
+</body>
+</html>
