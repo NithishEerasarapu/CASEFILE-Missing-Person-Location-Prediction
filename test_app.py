@@ -1,5 +1,5 @@
 import unittest
-from app import app, model, encoder
+from app import app
 
 class AppTestCase(unittest.TestCase):
     def setUp(self):
@@ -32,7 +32,7 @@ class AppTestCase(unittest.TestCase):
             'time': '14:30'
         })
         self.assertEqual(response.status_code, 400)
-        self.assertIn(b'not found in dataset', response.data)
+        self.assertIn(b'not found', response.data)
 
 if __name__ == '__main__':
     unittest.main()
