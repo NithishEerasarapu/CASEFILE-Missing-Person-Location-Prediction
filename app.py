@@ -1,12 +1,19 @@
 from flask import Flask, render_template, request
 import pandas as pd
 import joblib
+import os
 
-app = Flask(__name__, template_folder=".")
+app = Flask(__name__)
 
-# Load trained model
-model = joblib.load("location_model.pkl")
-encoder = joblib.load("user_encoder.pkl")
+# Base directory
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Load model and encoder
+MODEL_PATH = os.path.join(BASE_DIR, "location_model.pkl")
+ENCODER_PATH = os.path.join(BASE_DIR, "user_encoder.pkl")
+
+model = joblib.load(MODEL_PATH)
+encoder = joblib.load(ENCODER_PATH)
 
 
 @app.route("/")
@@ -16,38 +23,36 @@ def home():
 
 @app.route("/predict", methods=["POST"])
 def predict():
+    try:
+        user_id = request.form["user_id"]
+        date = request.form["date"]
+        time = request.form["time"]
 
-    user_id = request.form["user_id"]
-    date = request.form["date"]
-    time = request.form["time"]
+        if user_id not in encoder.classes_:
+            return "User ID not found in dataset."
 
-    if user_id not in encoder.classes_:
-        return "User ID not found in dataset."
+        user_encoded = encoder.transform([user_id])[0]
 
-    user_encoded = encoder.transform([user_id])[0]
+        date_value = pd.to_datetime(date)
+        time_value = pd.to_datetime(time)
 
-    date_value = pd.to_datetime(date)
-    time_value = pd.to_datetime(time)
+        input_data = pd.DataFrame({
+            "User_ID_encoded": [user_encoded],
+            "hour": [time_value.hour],
+            "day": [date_value.day],
+            "month": [date_value.month],
+            "weekday": [date_value.weekday()]
+        })
 
-    input_data = pd.DataFrame({
-        "User_ID_encoded": [user_encoded],
-        "hour": [time_value.hour],
-        "minute": [time_value.minute],
-        "day": [date_value.day],
-        "month": [date_value.month]
-    })
+        prediction = model.predict(input_data)
 
-    prediction = model.predict(input_data)
+        return render_template(
+            "index.html",
+            prediction_text=f"Predicted Location: {prediction[0]}"
+        )
 
-    latitude = prediction[0][0]
-    longitude = prediction[0][1]
-
-    return render_template(
-        "result.html",
-        user_id=user_id,
-        latitude=latitude,
-        longitude=longitude
-    )
+    except Exception as e:
+        return f"Error: {str(e)}"
 
 
 if __name__ == "__main__":
